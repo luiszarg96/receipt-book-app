@@ -1,5 +1,7 @@
 # 🍳 Receipt Book - iOS
 
+![Preview](/content/banner.png)
+
 👋🏼 Welcome to this open to collaborate iOS application repository! This project is a collaborative effort to build an amazing iOS app, and we invite developers to contribute and make it even better.
 
 📱 Receipt Book App, built with SwiftUI, is designed to help you manage and organize your receipts effortlessly. Whether you need to track expenses, manage business expenses, or simply want to stay organized, this app has got you covered
