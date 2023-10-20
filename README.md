@@ -14,7 +14,7 @@
 - Git
 
 ### How to contribute
-If you want to collaborate to the project, chech the [contribution.md](contribution.md) file
+If you want to collaborate to the project, check the [contribution.md](contribution.md) file
 
 ### Community
 You can also join the community channel on [Discord](https://discord.com/channels/729672926432985098/1162069876731564153)
