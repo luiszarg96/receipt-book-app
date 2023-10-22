@@ -15,6 +15,7 @@ struct HomeView: View {
     var body: some View {
         VStack{
             ZStack{
+                //Obción de fondo con degradado
                 //LinearGradient(gradient: Gradient(colors: [ Color.red.opacity(0.2),Color.red]), startPoint: .topLeading, endPoint: .bottomTrailing)
                 Color.red
                     .edgesIgnoringSafeArea(.all)
@@ -54,11 +55,5 @@ struct HomeView: View {
             }
         }
         .padding(.bottom, 30)
-    }
-}
-
-struct Home_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView()
     }
 }
