@@ -54,9 +54,3 @@ struct TabContainerView: View {
         }
     }
 }
-
-struct TabContainerView_Previews: PreviewProvider {
-    static var previews: some View {
-        TabContainerView()
-    }
-}
