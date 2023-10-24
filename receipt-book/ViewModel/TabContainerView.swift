@@ -24,7 +24,7 @@ struct TabContainerView: View {
                             Text("")
                         }
                         .tag(0)
-                        
+                    
                     Text("pagina 2") // Renplaza el texto por la vista
                         .tabItem {
                             Image(systemName: "wineglass.fill")
@@ -45,8 +45,9 @@ struct TabContainerView: View {
                 .sheet(isPresented: $model.show){
                     AddRecipeView(model: model)
                 }
+                
             }
-            
+            .accentColor(.red)
             .toolbar{
                 ToolbarItem(placement: .navigation) {
                     
@@ -57,15 +58,16 @@ struct TabContainerView: View {
                             Text("Nueva Receta")
                         }
                         Button(action: {
-                           
+                            
                         }){
                             Text("Boton 2")
                         }
                         Button(action: {
-                           
+                            
                         }){
                             Text("Boton 2")
                         }
+                        
                     } label: {
                         Image(systemName: "line.3.horizontal").foregroundColor(Color.white)
                             .imageScale(.large)
@@ -73,5 +75,9 @@ struct TabContainerView: View {
                 }
             }
         }
+        
+       
     }
 }
+
+

@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct AddRecipeView: View {
+
     @ObservedObject var model:  ReceiptModelt
+
     @Environment (\.managedObjectContext) var context
     @State private var selectedMinutes = 0
     let minuteOptions = Array(0...220) // Opciones de minutos del 0 al 220
@@ -20,6 +22,7 @@ struct AddRecipeView: View {
             Color.red
                 .edgesIgnoringSafeArea(.all)
             VStack{
+
                 HStack{
                     Spacer()
                     Button(action: {
