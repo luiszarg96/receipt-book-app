@@ -19,5 +19,6 @@ If you want to collaborate to the project, check the [contribution.md](contribut
 ### Community
 You can also join the community channel on [Discord](https://discord.com/channels/729672926432985098/1162069876731564153)
 
-
+### TO DO
+- Add License 
 
