@@ -23,14 +23,24 @@ class ReceiptModelt: ObservableObject {
     
     //Guar dar en coreData
     func seveReceipt(context: NSManagedObjectContext){
+        let minutosDeseados = 120 // Cambia esto al valor de minutos que desees
         let newReceipt = Receipt(context: context)
+        
         newReceipt.ids = ids
         newReceipt.category = category
-        newReceipt.time = time
         newReceipt.nutritionalValue = Int16(nutritionalValue)
         newReceipt.imageCover = imageCover
         newReceipt.nameRecipe = nameRecipe
         newReceipt.contentRecipe = contentRecipe
+        
+        // Convierte los minutos en una fecha y asigna a la propiedad time
+            if let fechaConvertida = convertirMinutosEnFecha(minutos: minutosDeseados) {
+                newReceipt.time = fechaConvertida
+            } else {
+                // Maneja el caso en el que la conversión no sea posible
+                // Puedes mostrar un mensaje de error o tomar alguna otra acción
+                print("No se pudo realizar la conversión de minutos a fecha")
+            }
         
         do{
             try context.save()
@@ -84,4 +94,20 @@ class ReceiptModelt: ObservableObject {
             print("No se a posido borrar", error.localizedDescription)
         }
     }
+    
+    //Funcion para combertir enteros en medida de tiempos en minutos
+    func convertirMinutosEnFecha(minutos: Int) -> Date? {
+           // Especifica la fecha de referencia (puedes ajustar esto según tus necesidades)
+           let fechaDeReferencia = Date()
+
+           // Crea un objeto Calendar
+           let calendar = Calendar.current
+
+           // Realiza la conversión de minutos a una fecha
+           if let fechaConvertida = calendar.date(byAdding: .minute, value: minutos, to: fechaDeReferencia) {
+               return fechaConvertida
+           } else {
+               return nil  // En caso de que la conversión no sea posible
+           }
+       }
 }
