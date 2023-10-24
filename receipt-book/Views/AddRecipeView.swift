@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct AddRecipeView: View {
-    @ObservedObject var model = ReceiptModelt()
+
+    @ObservedObject var model:  ReceiptModelt
+
     @Environment (\.managedObjectContext) var context
     @State private var selectedMinutes = 0
     let minuteOptions = Array(0...220) // Opciones de minutos del 0 al 220
@@ -20,7 +22,26 @@ struct AddRecipeView: View {
             Color.red
                 .edgesIgnoringSafeArea(.all)
             VStack{
-                Text("Find Your Food")
+
+                HStack{
+                    Spacer()
+                    Button(action: {
+                        model.show = false
+                        model.nameRecipe = ""
+                        model.contentRecipe = ""
+                        model.nutritionalValue = 0
+                        model.time = Date()
+                    }){
+                        Image(systemName: "xmark.square.fill").font(.custom("", size: 20))
+                            .foregroundStyle(Color.red)
+                            .shadow(radius: 20)
+                    }.padding(4)
+                }.background(Color.white)
+                    //.cornerRadius(5)
+                    .shadow(radius: 20)
+                    
+                
+                Text("Find Your Food, Receipt Save")
                     .font(.custom("Cochin", size: 20)).bold()// Cambia el tamaño y el estilo
                     .foregroundColor(Color.white)
                     .padding()
@@ -95,13 +116,25 @@ struct AddRecipeView: View {
                     // Asigna el valor seleccionado al atributo time en tu modelo
                     model.time = model.convertirMinutosEnFecha(minutos: selectedMinutes) ?? Date()
                     model.seveReceipt(context: context) // Guarda el objeto
+                    model.show = false
+                    model.nameRecipe = ""
+                    model.contentRecipe = ""
+                    model.nutritionalValue = 0
+                    model.time = Date()
+                    
                     
                 }) {
                     Text("Guardar")
-                }
+                        .font(.custom("Cochin", size: 20)).bold()
+                        .foregroundStyle(model.contentRecipe == "" ? Color.white : Color.red)
+                    
+                }.padding()
+                .frame(width: UIScreen.main.bounds.width - 60)
+                .background(model.contentRecipe == "" ? Color.gray : Color.white)
+                .cornerRadius(8)
+                .disabled(model.contentRecipe == "" ? true : false)
+                .shadow(radius: 20)
             }
-            
         }
-        
     }
 }
