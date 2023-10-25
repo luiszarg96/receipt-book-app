@@ -8,13 +8,21 @@
 import SwiftUI
 
 struct AddRecipeView: View {
-
+    
     @ObservedObject var model:  ReceiptModelt
-
     @Environment (\.managedObjectContext) var context
     @State private var selectedMinutes = 0
+    @State private var inputImage: UIImage?
+    @State private var image: Image?
+    @State private var showImagePicker = false
+    
     let minuteOptions = Array(0...220) // Opciones de minutos del 0 al 220
     let nutritionalValueOptions = Array(1...900)
+    
+    func loadImage(){
+        guard let inputImage = inputImage else {return}
+        image = Image(uiImage: inputImage)
+    }
     
     var texr = ""
     var body: some View {
@@ -22,7 +30,7 @@ struct AddRecipeView: View {
             Color.red
                 .edgesIgnoringSafeArea(.all)
             VStack{
-
+                
                 HStack{
                     Spacer()
                     Button(action: {
@@ -37,33 +45,61 @@ struct AddRecipeView: View {
                             .shadow(radius: 20)
                     }.padding(4)
                 }.background(Color.white)
-                    //.cornerRadius(5)
+                //.cornerRadius(5)
                     .shadow(radius: 20)
-                    
+                
                 
                 Text("Find Your Food, Receipt Save")
                     .font(.custom("Cochin", size: 20)).bold()// Cambia el tamaño y el estilo
                     .foregroundColor(Color.white)
                     .padding()
                 
-                TextField("Nombre de receta", text: $model.nameRecipe)
-                    .font(.custom("Cochin", size: 20)).bold()// Cambia el tamaño y el estilo
-                    .foregroundColor(Color.red)
-                    .padding(.leading, 40) // Ajusta el valor según sea necesario para dar espacio detrás del botón
-                    .padding(.trailing, 10) // Añade un pequeño espacio en el lado derecho si es necesario
-                    .padding(14)
+                image?
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 100, height: 100)
                     .background(Color.white)
                     .cornerRadius(15)
-                    .accentColor(.red)
-                    .padding()
-                
+                    .shadow(radius: 20)
+                ZStack{
+                    TextField("Nombre de receta", text: $model.nameRecipe)
+                        .font(.custom("Cochin", size: 20)).bold()// Cambia el tamaño y el estilo
+                        .foregroundColor(Color.red)
+                        .padding(.leading, 40) // Ajusta el valor según sea necesario para dar espacio detrás del botón
+                        .padding(.trailing, 10) // Añade un pequeño espacio en el lado derecho si es necesario
+                        .padding(14)
+                        .background(Color.white)
+                        .cornerRadius(15)
+                        .accentColor(.red)
+                        .padding()
+                    HStack{
+                        
+                    Spacer()
+                        Button{
+                            showImagePicker = true
+                        } label:{
+                            Image(systemName: "photo.badge.plus")
+                                .foregroundStyle(Color.red)
+                        }.padding(30)
+                        
+                        .onChange(of: inputImage) { _ in
+                            loadImage()
+                        }
+                        
+                        .sheet(isPresented: $showImagePicker) {
+                            ImagePicker(image: $inputImage)
+                        }
+                    }
+                }
                 HStack{
                     VStack{
                         Text("Tiempo")
                             .font(.custom("Cochin", size: 20)).bold()// Cambia el tamaño y el estilo
                             .foregroundColor(Color.red)
                             .padding()
-                        Image(systemName: "clock").font(.custom("", size: 60)).padding(10)
+                        
+                        Image(systemName: "clock").font(.custom("", size: 40))
+                            //.padding(10)
                             .foregroundColor(Color.red)
                         
                         // Agregar un Picker para seleccionar minutos
@@ -84,7 +120,8 @@ struct AddRecipeView: View {
                             .font(.custom("Cochin", size: 20)).bold()// Cambia el tamaño y el estilo
                             .foregroundColor(Color.red)
                             .padding()
-                        Image(systemName: "chart.bar.xaxis").font(.custom("", size: 60)).padding(10)
+                        Image(systemName: "chart.bar.xaxis").font(.custom("", size: 30))
+                            .padding(5)
                             .border(Color.red, width: 3)
                             .foregroundColor(Color.red)
                         
@@ -129,11 +166,11 @@ struct AddRecipeView: View {
                         .foregroundStyle(model.contentRecipe == "" ? Color.white : Color.red)
                     
                 }.padding()
-                .frame(width: UIScreen.main.bounds.width - 60)
-                .background(model.contentRecipe == "" ? Color.gray : Color.white)
-                .cornerRadius(8)
-                .disabled(model.contentRecipe == "" ? true : false)
-                .shadow(radius: 20)
+                    .frame(width: UIScreen.main.bounds.width - 60)
+                    .background(model.contentRecipe == "" ? Color.gray : Color.white)
+                    .cornerRadius(8)
+                    .disabled(model.contentRecipe == "" ? true : false)
+                    .shadow(radius: 20)
             }
         }
     }
