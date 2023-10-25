@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct HomeView: View {
+    @StateObject var model = ReceiptModelt()
+    @Environment (\.managedObjectContext) var context
     
     @State var showToobar = false
     @State var isSeeker = ""

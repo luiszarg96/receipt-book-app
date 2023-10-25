@@ -56,16 +56,19 @@ struct TabContainerView: View {
                             model.show = true
                         }){
                             Text("Nueva Receta")
+                            Image(systemName: "note.text.badge.plus")
                         }
                         Button(action: {
                             
                         }){
                             Text("Boton 2")
+                            Image(systemName: "eyes.inverse")
                         }
                         Button(action: {
                             
                         }){
-                            Text("Boton 2")
+                            Text("Boton 3")
+                            Image(systemName: "face.smiling.inverse")
                         }
                         
                     } label: {
