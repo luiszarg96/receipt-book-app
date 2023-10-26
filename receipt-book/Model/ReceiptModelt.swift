@@ -7,40 +7,41 @@
 
 import Foundation
 import CoreData
+import SwiftUI
 
 class ReceiptModelt: ObservableObject {
     
     @Published var ids = UUID()
     @Published var category = ""
-    @Published var time = Date()
+    @Published var minutes = 0
     @Published var nutritionalValue = 0
     @Published var imageCover: Data?
     @Published var nameRecipe = ""
     @Published var contentRecipe = ""
     @Published var updateItem: Receipt!
+   // @Published var isViewlist = false
+    @Published var isViewlist = UserDefaults.standard.bool(forKey: "isViewlistKey")
     @Published var show = false
     @Published var showItems = false
     
+   
+    var isFile: [GridItem] = [
+        GridItem(.flexible(minimum: 150), spacing: 10),
+        GridItem(.flexible(minimum: 150), spacing: 10)
+    ]
+    
     //Guar dar en coreData
-    func seveReceipt(context: NSManagedObjectContext){
-        let minutosDeseados = 120 // Cambia esto al valor de minutos que desees
+    func seveReceipt(context: NSManagedObjectContext, image: Data){
+        
         let newReceipt = Receipt(context: context)
         
         newReceipt.ids = ids
         newReceipt.category = category
         newReceipt.nutritionalValue = Int16(nutritionalValue)
-        newReceipt.imageCover = imageCover
+        newReceipt.imageCover = image
         newReceipt.nameRecipe = nameRecipe
         newReceipt.contentRecipe = contentRecipe
-        
-        // Convierte los minutos en una fecha y asigna a la propiedad time
-            if let fechaConvertida = convertirMinutosEnFecha(minutos: minutosDeseados) {
-                newReceipt.time = fechaConvertida
-            } else {
-                // Maneja el caso en el que la conversión no sea posible
-                // Puedes mostrar un mensaje de error o tomar alguna otra acción
-                print("No se pudo realizar la conversión de minutos a fecha")
-            }
+        newReceipt.minutes = Int16(minutes)
         
         do{
             try context.save()
@@ -57,8 +58,8 @@ class ReceiptModelt: ObservableObject {
         updateItem = item
         updateItem.category = item.category ?? ""
         updateItem.imageCover = item.imageCover ?? Data()
-        updateItem.time = item.time ?? Date()
         updateItem.nutritionalValue = Int16(item.nutritionalValue)
+        updateItem.minutes = Int16(item.minutes)
         updateItem.nameRecipe = item.nameRecipe ?? ""
         updateItem.contentRecipe = item.contentRecipe ?? ""
         showItems.toggle()
@@ -68,7 +69,7 @@ class ReceiptModelt: ObservableObject {
     func editReceipt(contex: NSManagedObjectContext){
         updateItem.category = category
         updateItem.imageCover = imageCover
-        updateItem.time = time
+        updateItem.minutes = Int16(minutes)
         updateItem.nutritionalValue = Int16(nutritionalValue)
         updateItem.nameRecipe = nameRecipe
         updateItem.contentRecipe = contentRecipe
@@ -94,20 +95,4 @@ class ReceiptModelt: ObservableObject {
             print("No se a posido borrar", error.localizedDescription)
         }
     }
-    
-    //Funcion para combertir enteros en medida de tiempos en minutos
-    func convertirMinutosEnFecha(minutos: Int) -> Date? {
-           // Especifica la fecha de referencia (puedes ajustar esto según tus necesidades)
-           let fechaDeReferencia = Date()
-
-           // Crea un objeto Calendar
-           let calendar = Calendar.current
-
-           // Realiza la conversión de minutos a una fecha
-           if let fechaConvertida = calendar.date(byAdding: .minute, value: minutos, to: fechaDeReferencia) {
-               return fechaConvertida
-           } else {
-               return nil  // En caso de que la conversión no sea posible
-           }
-       }
 }

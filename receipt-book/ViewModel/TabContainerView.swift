@@ -11,9 +11,9 @@ struct TabContainerView: View {
     
     @ObservedObject var model = ReceiptModelt()
     @Environment (\.managedObjectContext) var context
+    @EnvironmentObject var receiptModelt: ReceiptModelt
     
-    @State private var isModal = false
-    
+    @AppStorage("isEstado") var isEstado: Bool = false
     var body: some View {
         NavigationView {
             VStack{
@@ -58,19 +58,16 @@ struct TabContainerView: View {
                             Text("Nueva Receta")
                             Image(systemName: "note.text.badge.plus")
                         }
-                        Button(action: {
-                            
-                        }){
-                            Text("Boton 2")
-                            Image(systemName: "eyes.inverse")
-                        }
-                        Button(action: {
-                            
-                        }){
-                            Text("Boton 3")
-                            Image(systemName: "face.smiling.inverse")
-                        }
                         
+                      /*  Button(action: {
+                            isEstado.toggle()
+                         
+                            print(UserDefaults.standard.string(forKey: "isEstado") ?? Bool())
+                        }){
+                            Text(model.isViewlist ? "Vista en columna" : "Vista de lista")
+                            Image(systemName: model.isViewlist ? "platter.2.filled.ipad.landscape" : "filemenu.and.cursorarrow")
+                        }
+                        */
                     } label: {
                         Image(systemName: "line.3.horizontal").foregroundColor(Color.white)
                             .imageScale(.large)
