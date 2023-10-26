@@ -38,14 +38,12 @@ struct AddRecipeView: View {
                         model.nameRecipe = ""
                         model.contentRecipe = ""
                         model.nutritionalValue = 0
-                       // model.time = Date()
                     }){
                         Image(systemName: "xmark.square.fill").font(.custom("", size: 20))
                             .foregroundStyle(Color.red)
                             .shadow(radius: 20)
                     }.padding(4)
                 }.background(Color.white)
-                //.cornerRadius(5)
                     .shadow(radius: 20)
                 
                 
@@ -100,7 +98,6 @@ struct AddRecipeView: View {
                             .padding()
                         
                         Image(systemName: "clock").font(.custom("", size: 40))
-                            //.padding(10)
                             .foregroundColor(Color.red)
                         
                         // Agregar un Picker para seleccionar minutos
