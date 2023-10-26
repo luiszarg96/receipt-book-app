@@ -38,7 +38,7 @@ struct AddRecipeView: View {
                         model.nameRecipe = ""
                         model.contentRecipe = ""
                         model.nutritionalValue = 0
-                        model.time = Date()
+                       // model.time = Date()
                     }){
                         Image(systemName: "xmark.square.fill").font(.custom("", size: 20))
                             .foregroundStyle(Color.red)
@@ -59,8 +59,9 @@ struct AddRecipeView: View {
                     .scaledToFill()
                     .frame(width: 100, height: 100)
                     .background(Color.white)
-                    .cornerRadius(15)
+                    .cornerRadius(100)
                     .shadow(radius: 20)
+                    .shadow(color: .black , radius: 3 ,  x: 2 , y: 5)
                 ZStack{
                     TextField("Nombre de receta", text: $model.nameRecipe)
                         .font(.custom("Cochin", size: 20)).bold()// Cambia el tamaño y el estilo
@@ -103,7 +104,7 @@ struct AddRecipeView: View {
                             .foregroundColor(Color.red)
                         
                         // Agregar un Picker para seleccionar minutos
-                        Picker("Minutes", selection: $selectedMinutes) {
+                        Picker("Minutes", selection: $model.minutes) {
                             ForEach(minuteOptions, id: \.self) { minute in
                                 Text("\(minute) minutes")
                                     .foregroundColor(Color.red)
@@ -150,15 +151,24 @@ struct AddRecipeView: View {
                     .padding()
                 Spacer()
                 Button(action: {
-                    // Asigna el valor seleccionado al atributo time en tu modelo
-                    model.time = model.convertirMinutosEnFecha(minutos: selectedMinutes) ?? Date()
-                    model.seveReceipt(context: context) // Guarda el objeto
+                    var imageData: Data?
+                        if let inputImage = inputImage {
+                            imageData = inputImage.pngData() // Convierte UIImage a Data en formato PNG
+                        } else {
+                            // Si no hay una imagen, agrega imagen por defecto
+                            if let defaultImage = UIImage(named: "default") {
+                                imageData = defaultImage.pngData()
+                            }
+                        }
+
+                        // Llama al método seveReceipt con la imagen (puede ser la imagen por defecto si no hay una imagen)
+                        if let imageData = imageData {
+                            model.seveReceipt(context: context, image: imageData)
+                        }
                     model.show = false
                     model.nameRecipe = ""
                     model.contentRecipe = ""
                     model.nutritionalValue = 0
-                    model.time = Date()
-                    
                     
                 }) {
                     Text("Guardar")
@@ -175,3 +185,4 @@ struct AddRecipeView: View {
         }
     }
 }
+
