@@ -20,6 +20,19 @@ struct HomeView: View {
     
     @Binding var isViewlist: Bool
     
+    //Logica para el buscador
+    var filteredResult: [Receipt]{
+        if isSeeker.isEmpty{
+            return Array(result)
+        }else{
+            return result.filter{ result in
+                
+                //aqui se inserta los filtros para el buscador
+                let nameReceipt = result.nameRecipe?.localizedCaseInsensitiveContains(isSeeker) ?? false
+                return nameReceipt
+            }
+        }
+    }
     var body: some View {
         
         VStack{
@@ -48,7 +61,7 @@ struct HomeView: View {
                         
                         Button(action: {
                             // Logica para buscar
-                            
+                            isSeeker = isSeeker.trimmingCharacters(in: .whitespacesAndNewlines)
                         }){
                             Image(systemName: "magnifyingglass")
                         }.offset(x: -150)
@@ -59,7 +72,7 @@ struct HomeView: View {
                     if isViewlist != false {
                         //ESte el estilo de Vista
                         List{
-                            ForEach(result){item in
+                            ForEach(filteredResult){item in
                                 NavigationLink(destination: DetailView()){
                                     HStack{
                                         Image(uiImage: UIImage(data: item.imageCover ?? Data())!)
@@ -121,7 +134,7 @@ struct HomeView: View {
                         //  Este es estilo de columnas
                         ScrollView{
                             LazyVGrid(columns: model.isFile, spacing: 5){
-                                ForEach(result){item in
+                                ForEach(filteredResult){item in
                                     NavigationLink(destination: DetailView()){
                                         ZStack{
                                             RoundedRectangle(cornerRadius: 15)
