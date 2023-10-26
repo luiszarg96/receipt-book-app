@@ -13,12 +13,19 @@ struct TabContainerView: View {
     @Environment (\.managedObjectContext) var context
     @EnvironmentObject var receiptModelt: ReceiptModelt
     
+    init() {
+            // Recupera el estado de UserDefaults al iniciar la vista
+            if let savedIsViewlist = UserDefaults.standard.value(forKey: "isViewlistKey") as? Bool {
+                model.isViewlist = savedIsViewlist
+            }
+        }
+    
     @AppStorage("isEstado") var isEstado: Bool = false
     var body: some View {
         NavigationView {
             VStack{
                 TabView{
-                    HomeView() // Vista donde se muestra la lista de productos
+                    HomeView(isViewlist: $model.isViewlist) // Vista donde se muestra la lista de productos
                         .tabItem {
                             Image(systemName: "house")
                             Text("")
@@ -59,15 +66,17 @@ struct TabContainerView: View {
                             Image(systemName: "note.text.badge.plus")
                         }
                         
-                      /*  Button(action: {
-                            isEstado.toggle()
-                         
-                            print(UserDefaults.standard.string(forKey: "isEstado") ?? Bool())
+                        Button(action: {
+                            model.isViewlist.toggle()
+                            UserDefaults.standard.set(model.isViewlist, forKey: "isViewlistKey")
+
+                            
                         }){
                             Text(model.isViewlist ? "Vista en columna" : "Vista de lista")
                             Image(systemName: model.isViewlist ? "platter.2.filled.ipad.landscape" : "filemenu.and.cursorarrow")
+                           
                         }
-                        */
+                        
                     } label: {
                         Image(systemName: "line.3.horizontal").foregroundColor(Color.white)
                             .imageScale(.large)

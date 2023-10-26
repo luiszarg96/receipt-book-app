@@ -12,6 +12,7 @@ import SwiftUI
 class ReceiptModelt: ObservableObject {
     
     @Published var ids = UUID()
+    @Published var orden:Int16 = 0
     @Published var category = ""
     @Published var minutes = 0
     @Published var nutritionalValue = 0
@@ -19,11 +20,44 @@ class ReceiptModelt: ObservableObject {
     @Published var nameRecipe = ""
     @Published var contentRecipe = ""
     @Published var updateItem: Receipt!
-   // @Published var isViewlist = false
-    @Published var isViewlist = UserDefaults.standard.bool(forKey: "isViewlistKey")
+    @Published var isViewlist = false
     @Published var show = false
     @Published var showItems = false
+
+    //Este metod reorganiza los elementos de lista "List", no funciona con  "LazyVGrid
+    func move(from source: IndexSet, to destination: Int, with result: FetchedResults<Receipt>, in context: NSManagedObjectContext){
+        var items = Array(result)
+        items.move(fromOffsets: source, toOffset: destination)
+        
+        for i in 0..<items.count {
+            items[i].orden = Int16(i)
+        }
+        
+        do{
+            try context.save()
+            print("orden actualizado con exito")
+        }catch let error as NSError{
+            print("Orden no actualizado", error.localizedDescription)
+        }
+    }
     
+    //este en troria era para mover los elementos dentro del LazyVGrid ,.. pero no funciona
+    // lo dejo por si quereis dale una buelta de tuerca
+    func moveLazyVGrid(from source: IndexSet, to destination: Int, with result: FetchedResults<Receipt>, context: NSManagedObjectContext){
+        var items = result.map{$0}
+        items.move(fromOffsets: source, toOffset: destination)
+        
+        for i in 0..<items.count {
+            items[i].orden = Int16(i)
+        }
+        
+        do{
+            try context.save()
+            print("orden actualizado con exito")
+        }catch let error as NSError{
+            print("Orden no actualizado", error.localizedDescription)
+        }
+    }
    
     var isFile: [GridItem] = [
         GridItem(.flexible(minimum: 150), spacing: 10),
