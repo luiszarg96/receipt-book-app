@@ -18,14 +18,19 @@ struct TabContainerView: View {
             if let savedIsViewlist = UserDefaults.standard.value(forKey: "isViewlistKey") as? Bool {
                 model.isViewlist = savedIsViewlist
             }
+        
+            if let seveColorChange = UserDefaults.standard.value(forKey: "colorChangeKey") as? Bool {
+                model.colorChange = seveColorChange
+            }
         }
     
-    @AppStorage("isEstado") var isEstado: Bool = false
+   // @AppStorage("isEstado") var isEstado: Bool = false
+    
     var body: some View {
         NavigationView {
             VStack{
                 TabView{
-                    HomeView(isViewlist: $model.isViewlist) // Vista donde se muestra la lista de productos
+                    HomeView(isViewlist: $model.isViewlist, colorChangeKey: $model.colorChange) // Vista donde se muestra la lista de productos
                         .tabItem {
                             Image(systemName: "house")
                             Text("")
@@ -75,6 +80,14 @@ struct TabContainerView: View {
                             Text(model.isViewlist ? "Vista en columna" : "Vista de lista")
                             Image(systemName: model.isViewlist ? "platter.2.filled.ipad.landscape" : "filemenu.and.cursorarrow")
                            
+                        }
+                        
+                        Button(action: {
+                            model.colorChange.toggle()
+                            UserDefaults.standard.setValue(model.colorChange, forKey: "colorChangeKey")
+                        }){
+                            Text("Cambiar Estilo de fondo")
+                            Image(systemName: "swatchpalette")
                         }
                         
                     } label: {
