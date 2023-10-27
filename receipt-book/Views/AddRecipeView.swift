@@ -2,7 +2,7 @@
 //  AddRecipeView.swift
 //  receipt-book
 //
-//  Created by Esteban Perez Castillejo on 23/10/23.
+//  Created by lordzzz on 23/10/23.
 //
 
 import SwiftUI
@@ -23,8 +23,7 @@ struct AddRecipeView: View {
         guard let inputImage = inputImage else {return}
         image = Image(uiImage: inputImage)
     }
-    
-    var texr = ""
+
     var body: some View {
         ZStack{
             Color.red
@@ -55,21 +54,13 @@ struct AddRecipeView: View {
                 image?
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 100, height: 100)
                     .background(Color.white)
-                    .cornerRadius(100)
+                    .modifier(CustomImage(valueWidth: 100, valueheight: 100, valueCornerRadius: 100, valyePadding: 0))// llamas al modificadorr desde otra estructura
                     .shadow(radius: 20)
-                    .shadow(color: .black , radius: 3 ,  x: 2 , y: 5)
+                    
                 ZStack{
                     TextField("Nombre de receta", text: $model.nameRecipe)
-                        .font(.custom("Cochin", size: 20)).bold()// Cambia el tamaño y el estilo
-                        .foregroundColor(Color.red)
-                        .padding(.leading, 40) // Ajusta el valor según sea necesario para dar espacio detrás del botón
-                        .padding(.trailing, 10) // Añade un pequeño espacio en el lado derecho si es necesario
-                        .padding(14)
-                        .background(Color.white)
-                        .cornerRadius(15)
-                        .accentColor(.red)
+                        .modifier(CustomText())// LLamo ala esctructura donde esta los modificadores
                         .padding()
                     HStack{
                         
@@ -137,14 +128,7 @@ struct AddRecipeView: View {
                     .cornerRadius(15)
                     .padding()
                 TextEditor(text: $model.contentRecipe)
-                    .font(.custom("Cochin", size: 20)).bold()// Cambia el tamaño y el estilo
-                    .foregroundColor(Color.red)
-                    .padding(.leading, 40) // Ajusta el valor según sea necesario para dar espacio detrás del botón
-                    .padding(.trailing, 10) // Añade un pequeño espacio en el lado derecho si es necesario
-                    .padding(14)
-                    .background(Color.white)
-                    .cornerRadius(15)
-                    .accentColor(.red)
+                    .modifier(CustomText())// LLamo ala esctructura donde esta los modificadores
                     .padding()
                 Spacer()
                 Button(action: {

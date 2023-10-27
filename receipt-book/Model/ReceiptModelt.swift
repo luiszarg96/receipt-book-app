@@ -23,7 +23,8 @@ class ReceiptModelt: ObservableObject {
     @Published var isViewlist = false
     @Published var show = false
     @Published var showItems = false
-
+    @Published var colorChange = false
+    
     //Este metod reorganiza los elementos de lista "List", no funciona con  "LazyVGrid
     func move(from source: IndexSet, to destination: Int, with result: FetchedResults<Receipt>, in context: NSManagedObjectContext){
         var items = Array(result)

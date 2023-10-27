@@ -25,6 +25,9 @@
 		6E49EEDD2AE88B65001A61EE /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E49EEDC2AE88B65001A61EE /* ImagePicker.swift */; };
 		6E57B1CB2AE4CE6F00C45BBC /* ReceiptModelt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E57B1CA2AE4CE6F00C45BBC /* ReceiptModelt.swift */; };
 		6E57B1CD2AE6475100C45BBC /* AddRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E57B1CC2AE6475100C45BBC /* AddRecipeView.swift */; };
+		6E939FDE2AEC3167007464DF /* ListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E939FDD2AEC3167007464DF /* ListItemView.swift */; };
+		6E939FE02AEC44F4007464DF /* LazyVGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E939FDF2AEC44F4007464DF /* LazyVGridView.swift */; };
+		6E939FE22AEC477C007464DF /* Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E939FE12AEC477C007464DF /* Custom.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +69,9 @@
 		6E49EEDC2AE88B65001A61EE /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		6E57B1CA2AE4CE6F00C45BBC /* ReceiptModelt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptModelt.swift; sourceTree = "<group>"; };
 		6E57B1CC2AE6475100C45BBC /* AddRecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecipeView.swift; sourceTree = "<group>"; };
+		6E939FDD2AEC3167007464DF /* ListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemView.swift; sourceTree = "<group>"; };
+		6E939FDF2AEC44F4007464DF /* LazyVGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyVGridView.swift; sourceTree = "<group>"; };
+		6E939FE12AEC477C007464DF /* Custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Custom.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,7 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				6E57B1C92AE4CE4000C45BBC /* Model */,
-				6E57B1C82AE4CE0700C45BBC /* ViewModel */,
+				6E57B1C82AE4CE0700C45BBC /* ViewController */,
 				45EBEAA32AE1B871004CFE36 /* Views */,
 				45C146542AE05E00007D4E7A /* receipt_bookApp.swift */,
 				45C146562AE05E00007D4E7A /* ContentView.swift */,
@@ -167,13 +173,16 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		6E57B1C82AE4CE0700C45BBC /* ViewModel */ = {
+		6E57B1C82AE4CE0700C45BBC /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
 				45C154D82AE45B1600BA6A35 /* TabContainerView.swift */,
 				6E49EEDC2AE88B65001A61EE /* ImagePicker.swift */,
+				6E939FDD2AEC3167007464DF /* ListItemView.swift */,
+				6E939FDF2AEC44F4007464DF /* LazyVGridView.swift */,
+				6E939FE12AEC477C007464DF /* Custom.swift */,
 			);
-			path = ViewModel;
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		6E57B1C92AE4CE4000C45BBC /* Model */ = {
@@ -314,8 +323,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E939FE02AEC44F4007464DF /* LazyVGridView.swift in Sources */,
 				6E49EEDD2AE88B65001A61EE /* ImagePicker.swift in Sources */,
+				6E939FDE2AEC3167007464DF /* ListItemView.swift in Sources */,
 				45C1465E2AE05E01007D4E7A /* Persistence.swift in Sources */,
+				6E939FE22AEC477C007464DF /* Custom.swift in Sources */,
 				45C146572AE05E00007D4E7A /* ContentView.swift in Sources */,
 				6E57B1CD2AE6475100C45BBC /* AddRecipeView.swift in Sources */,
 				45EBEAA52AE1B897004CFE36 /* OnboardingView.swift in Sources */,

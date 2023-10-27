@@ -2,7 +2,7 @@
 //  ImagePicker.swift
 //  receipt-book
 //
-//  Created by Esteban Perez Castillejo on 25/10/23.
+//   Created by lordzzz on 25/10/23.
 //
 
 import SwiftUI
