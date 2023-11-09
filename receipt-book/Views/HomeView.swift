@@ -101,3 +101,9 @@ struct HomeView: View {
         .padding(.bottom, 30)
     }
 }
+
+struct HomeView_Previews: PreviewProvider {
+    static var previews: some View {
+        HomeView(isViewlist: .constant(false), colorChangeKey: .constant(false))
+    }
+}
