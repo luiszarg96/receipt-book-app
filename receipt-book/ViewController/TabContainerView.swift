@@ -32,21 +32,21 @@ struct TabContainerView: View {
                 TabView{
                     HomeView(isViewlist: $model.isViewlist, colorChangeKey: $model.colorChange) // Vista donde se muestra la lista de productos
                         .tabItem {
-                            Image(systemName: "house")
+                            Image("home")
                             Text("")
                         }
                         .tag(0)
                     
                     Text("pagina 2") // Renplaza el texto por la vista
                         .tabItem {
-                            Image(systemName: "wineglass.fill")
+                            Image("drink")
                             Text("")
                         }
                         .tag(1)
                     
                     Text("pagina 3") // Renplaza el texto por la vista
                         .tabItem {
-                            Image(systemName: "person.crop.circle")
+                            Image("folder")
                             Text("")
                         }
                         .tag(2)
